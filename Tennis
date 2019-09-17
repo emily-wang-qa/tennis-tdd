@@ -1,0 +1,78 @@
+import java.util.HashMap;
+
+import static java.lang.Math.abs;
+
+
+public class Tennis {
+    private int firstPlayerScoreTimes;
+    private int secondPlayerScoreTimes;
+    private String firstPlayerName;
+    private String secondPlayerName;
+    private final HashMap<Integer, String> scoreLookup = new HashMap<> () {{
+            put (0, "Love");
+            put (1, "Fifteen");
+            put (2, "Thirty");
+            put (3, "Forty");
+        }};
+
+    public Tennis(String firstPlayerName, String secondPlayerName) {
+        this.firstPlayerName = firstPlayerName;
+        this.secondPlayerName = secondPlayerName;
+    }
+
+    public String score(){
+        return isScoreDifferent ( )
+                ? isReadyForGamePoint ( ) ? advStatus ( )
+                : lookupscore ( ) : isDeuce ( ) ? deuce ( ) : sameScore ( );
+    }
+
+    private String advStatus() {
+        return isAdv() ? String.format ("%s Adv", advPlayer ( )) : String.format ("%s Win", advPlayer ( ));
+    }
+
+    private String deuce() {
+        return "Deuce";
+    }
+
+    private boolean isDeuce() {
+        return firstPlayerScoreTimes >=3;
+    }
+
+    private String sameScore() {
+        return String.format ("%s All", scoreLookup.get (firstPlayerScoreTimes));
+    }
+
+    private String lookupscore() {
+        return String.format ("%s %s", scoreLookup.get (firstPlayerScoreTimes), scoreLookup.get (secondPlayerScoreTimes));
+    }
+
+    private boolean isScoreDifferent() {
+        return firstPlayerScoreTimes != secondPlayerScoreTimes;
+    }
+
+    private boolean isReadyForGamePoint() {
+        return firstPlayerScoreTimes > 3 ||secondPlayerScoreTimes > 3;
+    }
+
+    private boolean isAdv() {
+        return abs(firstPlayerScoreTimes-secondPlayerScoreTimes == 1);
+    }
+
+    private boolean abs(boolean b) {
+        return b;
+    }
+
+    private String advPlayer() {
+        return firstPlayerScoreTimes > secondPlayerScoreTimes
+                                ? firstPlayerName
+                                : secondPlayerName;
+    }
+
+    public void firstPlayerScore() {
+        firstPlayerScoreTimes++;
+    }
+
+    public void secondPlayerScore() {
+        secondPlayerScoreTimes++;
+    }
+}
