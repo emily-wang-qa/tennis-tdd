@@ -1,0 +1,121 @@
+import org.junit.Test;
+
+import static junit.framework.TestCase.assertEquals;
+
+public class TennisTest {
+
+        Tennis tennis = new Tennis("Ace","Ben");
+
+    @Test
+    public void Love_All() {
+        scoreShouldBe ( "Love All");
+    }
+
+    @Test
+    public void Fifteen_Love() {
+        givenFirstPlayerScore(1);
+        scoreShouldBe ("Fifteen Love");
+    }
+
+    @Test
+    public void Thirty_Love() {
+        givenFirstPlayerScore(2);
+        scoreShouldBe ("Thirty Love");
+    }
+
+    @Test
+    public void Forty_Love() {
+        givenFirstPlayerScore(3);
+        scoreShouldBe ("Forty Love");
+    }
+
+    @Test
+    public void Love_Fifteen() {
+        givenSecondPlayerScore (1);
+        scoreShouldBe ("Love Fifteen");
+    }
+
+    @Test
+    public void Love_Thirty() {
+        givenSecondPlayerScore (2);
+        scoreShouldBe ("Love Thirty");
+    }
+
+    @Test
+    public void Love_Forty() {
+        givenSecondPlayerScore (3);
+        scoreShouldBe ("Love Forty");
+    }
+
+    @Test
+    public void Fifteen_All() {
+        givenFirstPlayerScore(1);
+        givenSecondPlayerScore (1);
+        scoreShouldBe ("Fifteen All");
+    }
+
+    @Test
+    public void Thirty_All() {
+        givenFirstPlayerScore(2);
+        givenSecondPlayerScore (2);
+        scoreShouldBe ("Thirty All");
+    }
+
+    @Test
+    public void Deuce() {
+        givenDeuce();
+        scoreShouldBe ("Deuce");
+    }
+
+    @Test
+    public void FirstPlayer_Adv() {
+        givenDeuce();
+        givenFirstPlayerScore (1);
+        scoreShouldBe ("Ace Adv");
+    }
+
+    @Test
+    public void SecondPlayer_Adv() {
+        givenDeuce();
+        givenSecondPlayerScore (1);
+        scoreShouldBe ("Ben Adv");
+    }
+
+    @Test
+    public void FirstPlayer_Win() {
+        givenFirstPlayerScore (4);
+        givenSecondPlayerScore (2);
+        scoreShouldBe ("Ace Win");
+    }
+
+    @Test
+    public void SecondPlayer_Win() {
+        givenFirstPlayerScore (2);
+        givenSecondPlayerScore (4);
+        scoreShouldBe ("Ben Win");
+    }
+
+    private void givenDeuce() {
+        givenFirstPlayerScore (3);
+        givenSecondPlayerScore (3);
+    }
+
+
+    private void givenSecondPlayerScore(int times) {
+        for (int i = 0; i < times; i++) {
+            tennis.secondPlayerScore();
+        }
+    }
+
+    private void givenFirstPlayerScore(int times) {
+        for (int i = 0; i < times; i++) {
+            tennis.firstPlayerScore();
+        }
+    }
+
+    private void scoreShouldBe(String expected) {
+        assertEquals (expected, tennis.score());
+    }
+
+
+}
